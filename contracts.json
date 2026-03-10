@@ -1,0 +1,24 @@
+{
+  "1": {
+    "id": "1",
+    "title": "Dark Mystery Series - Production Agreement",
+    "status": "Active",
+    "value": 5000000,
+    "signed_date": "2024-11-01",
+    "expiry_date": "2025-12-31",
+    "type": "Production",
+    "studio": "Partner Studios Inc.",
+    "terms": "Exclusive worldwide rights for 10 years"
+  },
+  "2": {
+    "id": "2",
+    "title": "Sci-Fi Drama - Development Deal",
+    "status": "Active",
+    "value": 12000000,
+    "signed_date": "2025-11-20",
+    "expiry_date": "2026-06-30",
+    "type": "Development",
+    "studio": "Partner Studios Inc.",
+    "terms": "Option for 3 seasons with renewal clause"
+  }
+}

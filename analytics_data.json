@@ -1,0 +1,88 @@
+{
+  "content_performance": {
+    "1": {
+      "title": "Midnight Chronicles",
+      "genre": "Sci-Fi Thriller",
+      "studio": "Phoenix Studios",
+      "viewership_hours": 8200000,
+      "completion_rate": 87,
+      "avg_watch_time": 42,
+      "top_region": "United States",
+      "top_age_group": "25-34",
+      "trending": "up",
+      "performance_badge": "excellent"
+    },
+    "2": {
+      "title": "The Last Horizon",
+      "genre": "Drama",
+      "studio": "Phoenix Studios",
+      "viewership_hours": 12500000,
+      "completion_rate": 91,
+      "avg_watch_time": 48,
+      "top_region": "United Kingdom",
+      "top_age_group": "35-44",
+      "trending": "up",
+      "performance_badge": "excellent"
+    },
+    "3": {
+      "title": "Echo Chamber",
+      "genre": "Psychological Thriller",
+      "studio": "Phoenix Studios",
+      "viewership_hours": 6800000,
+      "completion_rate": 78,
+      "avg_watch_time": 38,
+      "top_region": "Canada",
+      "top_age_group": "18-24",
+      "trending": "stable",
+      "performance_badge": "good"
+    },
+    "4": {
+      "title": "Starlight Runners",
+      "genre": "Adventure",
+      "studio": "Phoenix Studios",
+      "viewership_hours": 5200000,
+      "completion_rate": 65,
+      "avg_watch_time": 35,
+      "top_region": "Australia",
+      "top_age_group": "18-24",
+      "trending": "down",
+      "performance_badge": "warning"
+    },
+    "5": {
+      "title": "Silent Symphony",
+      "genre": "Drama",
+      "studio": "Meridian Pictures",
+      "viewership_hours": 9500000,
+      "completion_rate": 89,
+      "avg_watch_time": 45,
+      "top_region": "United States",
+      "top_age_group": "35-44",
+      "trending": "up",
+      "performance_badge": "excellent"
+    },
+    "6": {
+      "title": "Quantum Leap",
+      "genre": "Sci-Fi Thriller",
+      "studio": "Meridian Pictures",
+      "viewership_hours": 11200000,
+      "completion_rate": 84,
+      "avg_watch_time": 40,
+      "top_region": "United Kingdom",
+      "top_age_group": "18-24",
+      "trending": "up",
+      "performance_badge": "excellent"
+    },
+    "7": {
+      "title": "Underneath",
+      "genre": "Horror",
+      "studio": "Meridian Pictures",
+      "viewership_hours": 7800000,
+      "completion_rate": 72,
+      "avg_watch_time": 36,
+      "top_region": "Canada",
+      "top_age_group": "18-24",
+      "trending": "stable",
+      "performance_badge": "good"
+    }
+  }
+}

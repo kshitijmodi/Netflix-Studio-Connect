@@ -1,0 +1,79 @@
+{
+  "1": {
+    "title": "Midnight Chronicles",
+    "genre": "Sci-Fi Thriller",
+    "logline": "In a future where dreams can be recorded and shared, a rogue dream detective uncovers a conspiracy.",
+    "description": "In a future where dreams can be recorded and shared, a rogue dream detective uncovers a conspiracy that threatens the fabric of reality itself. As she delves deeper into the mystery, she must confront her own buried memories and decide what's real and what's fabricated.",
+    "target": "Adults 18-49",
+    "studio": "Phoenix Studios",
+    "status": "Under Review",
+    "submitted": "Nov 1, 2024",
+    "days_ago": "2 days ago"
+  },
+  "2": {
+    "title": "The Last Horizon",
+    "genre": "Drama",
+    "logline": "An astronaut confronts her past during humanity's first mission to Mars.",
+    "description": "An astronaut confronts her past during humanity's first mission to Mars, discovering that the journey to another world requires confronting the demons she left behind on Earth.",
+    "target": "Adults 18-49",
+    "studio": "Phoenix Studios",
+    "status": "Approved",
+    "submitted": "Oct 25, 2024",
+    "days_ago": "5 days ago"
+  },
+  "3": {
+    "title": "Echo Chamber",
+    "genre": "Psychological Thriller",
+    "logline": "A true crime podcaster discovers that her listeners' anonymous confessions are connected to unsolved murders.",
+    "description": "A true crime podcaster discovers that her listeners' anonymous confessions are connected to a series of unsolved murders. As the line between storyteller and investigator blurs, she becomes the next target.",
+    "target": "Young Adults 18-34",
+    "studio": "Phoenix Studios",
+    "status": "Feedback Received",
+    "submitted": "Oct 22, 2024",
+    "days_ago": "1 week ago"
+  },
+  "4": {
+    "title": "Starlight Runners",
+    "genre": "Adventure",
+    "logline": "In a colonized solar system, a crew of charismatic smugglers navigate dangerous trade routes.",
+    "description": "In a colonized solar system, a crew of charismatic smugglers navigate dangerous trade routes while evading corporate authorities and space pirates, all while uncovering a conspiracy that could change humanity's future among the stars.",
+    "target": "Adults 18-49",
+    "studio": "Phoenix Studios",
+    "status": "Under Review",
+    "submitted": "Oct 28, 2024",
+    "days_ago": "3 days ago"
+  },
+  "5": {
+    "title": "Silent Symphony",
+    "genre": "Drama",
+    "logline": "A deaf composer discovers she can hear music through touch, revolutionizing the classical music world.",
+    "description": "Born deaf but with an extraordinary gift, Maya can perceive music through vibrations and touch. When she composes a groundbreaking symphony using unconventional methods, the classical music establishment must confront its prejudices. A story about breaking barriers and redefining what it means to truly hear music.",
+    "target": "Adults 18-49",
+    "studio": "Meridian Pictures",
+    "status": "Under Review",
+    "submitted": "Nov 5, 2024",
+    "days_ago": "1 day ago"
+  },
+  "6": {
+    "title": "Quantum Leap",
+    "genre": "Sci-Fi Thriller",
+    "logline": "A physicist accidentally creates a device that lets her communicate with parallel versions of herself.",
+    "description": "Dr. Elena Park's quantum communication experiment goes awry, opening channels to parallel universes where different versions of herself made different choices. As she navigates infinite possibilities, she must decide which version of her life is worth fighting for\u2014before the multiverse collapses.",
+    "target": "Young Adults 18-34",
+    "studio": "Meridian Pictures",
+    "status": "Approved",
+    "submitted": "Oct 18, 2024",
+    "days_ago": "2 weeks ago"
+  },
+  "7": {
+    "title": "Underneath",
+    "genre": "Horror",
+    "logline": "Urban explorers discover an ancient civilization living beneath modern New York City.",
+    "description": "What begins as an urban exploration documentary turns into a nightmare when a film crew discovers an entrance to a vast underground society that has existed beneath Manhattan for millennia. They worship something ancient and hungry, and the explorers' arrival has awakened it.",
+    "target": "Young Adults 18-34",
+    "studio": "Meridian Pictures",
+    "status": "Under Review",
+    "submitted": "Oct 30, 2024",
+    "days_ago": "4 days ago"
+  }
+}

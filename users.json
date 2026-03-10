@@ -1,0 +1,20 @@
+{
+  "phoenix_exec": {
+    "password": "0dc24eae6d04014e00466756a0a26bf2740cbe0d6dc94fd13698269f474ea1e7",
+    "name": "Alex Rivera",
+    "studio": "Phoenix Studios",
+    "role": "studio"
+  },
+  "meridian_exec": {
+    "password": "f3d2f555eaf9a6c3e0982f4bb3fec33dc153e556a6d3f5b5c5066af9435347d4",
+    "name": "Jordan Chen",
+    "studio": "Meridian Pictures",
+    "role": "studio"
+  },
+  "netflix_exec": {
+    "password": "91535699e34a48507c40a0a037a37a9a4c44226096658e22e779cf8cdac93e95",
+    "name": "Sarah Chen",
+    "studio": "Netflix Content Team",
+    "role": "netflix_exec"
+  }
+}

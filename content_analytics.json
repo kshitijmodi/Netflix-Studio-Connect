@@ -1,0 +1,26 @@
+{
+  "Midnight Chronicles": {
+    "views": 8200000,
+    "unique_viewers": 6100000,
+    "avg_watch_time": 42,
+    "completion_rate": 87,
+    "weekly_views": [
+      720000,
+      1100000,
+      980000,
+      850000
+    ]
+  },
+  "Silicon Dreams": {
+    "views": 5600000,
+    "unique_viewers": 4300000,
+    "avg_watch_time": 38,
+    "completion_rate": 91,
+    "weekly_views": [
+      580000,
+      920000,
+      780000,
+      650000
+    ]
+  }
+}

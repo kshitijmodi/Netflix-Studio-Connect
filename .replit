@@ -1,0 +1,51 @@
+modules = ["python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+
+[[ports]]
+localPort = 8080
+
+[[ports]]
+localPort = 8501
+externalPort = 80
+
+#[[ports]]
+#localPort = 8501
+#externalPort = 3000
+
+#[[ports]]
+#localPort = 8502
+#externalPort = 3001
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start Netflix Studio Connect"
+
+[[workflows.workflow]]
+name = "Start Netflix Studio Connect"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "poetry install && poetry run streamlit run appai.py --server.address=0.0.0.0 --server.port=8080"
+waitForPort = 8080
+
+[deployment]
+run = [
+  "sh",
+  "-c",
+  "poetry install && poetry run streamlit run appai.py --server.address=0.0.0.0 --server.port=8080",
+]
+deploymentTarget = "cloudrun"

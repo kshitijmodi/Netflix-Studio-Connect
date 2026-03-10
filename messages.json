@@ -1,0 +1,38 @@
+{
+  "1": {
+    "id": "1",
+    "from": "netflix_exec",
+    "to": "studio_exec",
+    "subject": "Dark Mystery Series Feedback",
+    "content": "Great work on the pitch! We love the concept. Lets schedule a call to discuss casting options.",
+    "timestamp": "2024-11-18 10:30:00",
+    "read": true
+  },
+  "2": {
+    "id": "2",
+    "from": "producer",
+    "to": "netflix_exec",
+    "subject": "Production Update",
+    "content": "Updated production timeline for Dark Mystery pilot. We are on track for January delivery.",
+    "timestamp": "2024-11-17 14:20:00",
+    "read": true
+  },
+  "3": {
+    "id": "3",
+    "from": "studio_exec",
+    "to": "producer",
+    "subject": "hi",
+    "content": "Hello, how can I assist you today?",
+    "timestamp": "2026-01-07 05:03:32",
+    "read": true
+  },
+  "4": {
+    "id": "4",
+    "from": "producer",
+    "to": "studio_exec",
+    "subject": "buidling 000",
+    "content": "Here is a revised message:\n\n\"Could I please receive an update on the status of my recent pitch for Building 000?\"",
+    "timestamp": "2026-01-07 05:24:46",
+    "read": true
+  }
+}

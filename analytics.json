@@ -1,0 +1,30 @@
+{
+  "content_trends": {
+    "trending_genres": [
+      "Thriller",
+      "Sci-Fi",
+      "Drama",
+      "Documentary"
+    ],
+    "audience_preferences": {
+      "Thriller": {
+        "growth": "+15%",
+        "avg_completion": "78%"
+      },
+      "Sci-Fi": {
+        "growth": "+22%",
+        "avg_completion": "82%"
+      },
+      "Drama": {
+        "growth": "+8%",
+        "avg_completion": "75%"
+      }
+    }
+  },
+  "studio_performance": {
+    "total_projects": 2,
+    "active_projects": 2,
+    "success_rate": "85%",
+    "avg_viewership": "12M hours"
+  }
+}

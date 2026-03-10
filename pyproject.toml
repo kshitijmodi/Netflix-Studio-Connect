@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "netflix-studio-connect"
+version = "0.1.0"
+description = "Netflix Studio Connect - Partner Studio Platform"
+authors = ["Replit User"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "*"
+groq = "*"
+requests = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
