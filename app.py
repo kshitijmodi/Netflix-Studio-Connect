@@ -1389,18 +1389,28 @@ def screen_pitches():
             min-height: 700px !important;
         }
 
-        /* Pitch selector as RADIO cards (so the whole card is clickable) */
-        div[data-testid="column"]:first-child div[role="radiogroup"] > label[data-baseweb="radio"] {
-            margin: 0 0 15px 0 !important;
+        /* Pitch selector as RADIO + card row (radio visible beside card) */
+        div[data-testid="column"]:first-child div[role="radiogroup"] > label[data-baseweb="radio"]{
+            margin: 0 0 14px 0 !important;
         }
 
-        /* Hide the default radio circle */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] input {
-            display: none !important;
+        /* Layout: radio at left, card surface at right */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"]{
+            display: flex !important;
+            align-items: stretch !important;
+            gap: 12px !important;
         }
 
-        /* The clickable card surface */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div {
+        /* Ensure the radio control is visible and aligned */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:first-child{
+            display: flex !important;
+            align-items: flex-start !important;
+            padding-top: 18px !important; /* align with title line */
+            flex: 0 0 auto !important;
+        }
+
+        /* Card surface (2nd child div in the label) */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:last-child{
             background: transparent !important;
             border: 2px solid #4A5568 !important;
             border-radius: 10px !important;
@@ -1410,28 +1420,34 @@ def screen_pitches():
             box-shadow: none !important;
         }
 
-        /* Hover */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"]:hover > div {
+        /* Hover: subtle lift */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"]:hover > div:last-child{
             border-color: #E50914 !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18) !important;
         }
 
         /* Selected: red border only */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] input:checked + div {
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] input:checked ~ div:last-child{
             background: transparent !important;
             border-color: #E50914 !important;
             transform: none !important;
             box-shadow: none !important;
         }
 
-        /* Text styling inside */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div span {
+        /* Text inside card: always visible */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:last-child span{
             white-space: pre-line !important;
             text-align: left !important;
-            color: #E5E7EB !important;
             line-height: 1.25 !important;
             display: block !important;
+            color: #E5E7EB !important;
+        }
+
+        /* Title emphasis: first line brighter/bolder when possible */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:last-child span:first-child{
+            color: #FFFFFF !important;
+            font-weight: 650 !important;
         }
         </style>
         """, unsafe_allow_html=True)
