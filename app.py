@@ -1090,6 +1090,7 @@ def screen_pitches():
     <style>
     /* Pitch card styling */
     .pitch-card-button button {
+        background: transparent !important;
         background-color: transparent !important;
         border: 2px solid #4A5568 !important;
         border-radius: 10px !important;
@@ -1098,7 +1099,7 @@ def screen_pitches():
         height: auto !important;
         white-space: pre-line !important; /* respect \n in label */
         transition: all 0.2s ease !important;
-        color: #FFFFFF !important;
+        color: #E5E7EB !important;
     }
 
     .pitch-card-button button:hover {
@@ -1108,7 +1109,10 @@ def screen_pitches():
     }
 
     .pitch-card-button button[kind="primary"] {
+        background: transparent !important;
+        background-color: transparent !important;
         border: 2px solid #E50914 !important;
+        color: #FFFFFF !important;
     }
 
     .pitch-clickable-card {
