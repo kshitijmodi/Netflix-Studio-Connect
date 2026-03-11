@@ -1391,7 +1391,7 @@ def screen_pitches():
 
         /* Make the pitch "card" itself a button */
         div[data-testid="column"]:first-child button[kind] {
-            background-color: #1A1F2E !important;
+            background-color: transparent !important;
             border: 2px solid #4A5568 !important;
             border-radius: 10px !important;
             padding: 16px !important;
@@ -1411,8 +1411,15 @@ def screen_pitches():
 
         /* Selected pitch highlight */
         div[data-testid="column"]:first-child button[kind="primary"] {
-            background-color: rgba(229, 9, 20, 0.08) !important;
+            background-color: transparent !important;
             border: 2px solid #E50914 !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* Typography inside the card-button */
+        div[data-testid="column"]:first-child button[kind] {
+            line-height: 1.25 !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1426,7 +1433,10 @@ def screen_pitches():
             status = p.get('status', "Under Review")
             days_ago = str(p.get('days_ago', "Recently"))
 
-            label = f"{p.get('title','')}\n{p.get('genre','')}\n🕒 {days_ago}   •   {status}"
+            title_txt = p.get('title', '')
+            genre_txt = p.get('genre', '')
+            meta_txt = f"🕒 {days_ago}   •   {status}"
+            label = f"{title_txt}\n{genre_txt}\n{meta_txt}"
             if st.button(
                 label,
                 key=f"pitch_select_{pid}",
