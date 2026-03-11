@@ -1389,50 +1389,49 @@ def screen_pitches():
             min-height: 700px !important;
         }
 
-        /* Pitch list buttons: reliable selectors across Streamlit versions */
-        .pitch-list .stButton > button,
-        .pitch-list .stButton > button[data-testid^="baseButton-"] {
+        /* Pitch selector as RADIO cards (so the whole card is clickable) */
+        div[data-testid="column"]:first-child div[role="radiogroup"] > label[data-baseweb="radio"] {
+            margin: 0 0 15px 0 !important;
+        }
+
+        /* Hide the default radio circle */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] input {
+            display: none !important;
+        }
+
+        /* The clickable card surface */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div {
             background: transparent !important;
-            background-color: transparent !important;
-            background-image: none !important;
             border: 2px solid #4A5568 !important;
             border-radius: 10px !important;
             padding: 14px 16px !important;
-            height: auto !important;
             width: 100% !important;
-            white-space: pre-line !important; /* respect \n in label */
-            text-align: left !important;
-            color: #E5E7EB !important;
             transition: all 0.18s ease !important;
             box-shadow: none !important;
-            display: flex !important;
-            justify-content: flex-start !important;
-            align-items: flex-start !important;
-            line-height: 1.25 !important;
         }
 
-        .pitch-list .stButton > button:hover {
+        /* Hover */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"]:hover > div {
             border-color: #E50914 !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18) !important;
         }
 
-        /* Selected pitch highlight: red border only (no fill) */
-        .pitch-list .stButton > button[kind="primary"],
-        .pitch-list .stButton > button[data-testid="baseButton-primary"] {
+        /* Selected: red border only */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] input:checked + div {
             background: transparent !important;
-            background-color: transparent !important;
             border-color: #E50914 !important;
-            box-shadow: none !important;
             transform: none !important;
-            color: #FFFFFF !important;
+            box-shadow: none !important;
         }
 
-        /* De-emphasize secondary fill if Streamlit injects it */
-        .pitch-list .stButton > button[kind="secondary"],
-        .pitch-list .stButton > button[data-testid="baseButton-secondary"] {
-            background: transparent !important;
-            background-color: transparent !important;
+        /* Text styling inside */
+        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div span {
+            white-space: pre-line !important;
+            text-align: left !important;
+            color: #E5E7EB !important;
+            line-height: 1.25 !important;
+            display: block !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1440,29 +1439,33 @@ def screen_pitches():
         st.markdown("<h3 style='margin: 0 0 20px 0;'>Your Pitches</h3>",
                     unsafe_allow_html=True)
 
-        st.markdown("<div class='pitch-list'>", unsafe_allow_html=True)
+        if pitches:
+            pitch_ids = list(pitches.keys())
 
-        # Render pitch cards - CLICKABLE VERSION
-        for pid, p in pitches.items():
-            selected = st.session_state.get('sel_p') == pid
-            status = p.get('status', "Under Review")
-            days_ago = str(p.get('days_ago', "Recently"))
+            def _pitch_label(pid):
+                p = pitches.get(pid, {})
+                status = p.get('status', "Under Review")
+                days_ago = str(p.get('days_ago', "Recently"))
+                title_txt = p.get('title', '')
+                genre_txt = p.get('genre', '')
+                meta_txt = f"🕒 {days_ago}   •   {status}"
+                return f"{title_txt}\n{genre_txt}\n{meta_txt}"
 
-            title_txt = p.get('title', '')
-            genre_txt = p.get('genre', '')
-            meta_txt = f"🕒 {days_ago}   •   {status}"
-            label = f"{title_txt}\n{genre_txt}\n{meta_txt}"
-            if st.button(
-                label,
-                key=f"pitch_select_{pid}",
-                help=f"Click to view {p.get('title','this pitch')}",
-                type=("primary" if selected else "secondary"),
-                use_container_width=True,
-            ):
-                st.session_state.sel_p = pid
+            current_sel = st.session_state.get('sel_p')
+            index = pitch_ids.index(current_sel) if current_sel in pitch_ids else 0
+
+            selected_pid = st.radio(
+                "Pitch selector",
+                options=pitch_ids,
+                index=index,
+                format_func=_pitch_label,
+                label_visibility="collapsed",
+                key="pitch_selector_radio",
+            )
+
+            if selected_pid and st.session_state.get('sel_p') != selected_pid:
+                st.session_state.sel_p = selected_pid
                 st.rerun()
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
     # Right Column - Pitch Details
     with col2:
