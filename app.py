@@ -1389,43 +1389,58 @@ def screen_pitches():
             min-height: 700px !important;
         }
 
-        /* Make the pitch "card" itself a button */
-        div[data-testid="column"]:first-child button[kind] {
+        /* Pitch list buttons: reliable selectors across Streamlit versions */
+        .pitch-list .stButton > button,
+        .pitch-list .stButton > button[data-testid^="baseButton-"] {
+            background: transparent !important;
             background-color: transparent !important;
+            background-image: none !important;
             border: 2px solid #4A5568 !important;
             border-radius: 10px !important;
-            padding: 16px !important;
-            text-align: left !important;
+            padding: 14px 16px !important;
             height: auto !important;
+            width: 100% !important;
             white-space: pre-line !important; /* respect \n in label */
-            transition: all 0.2s ease !important;
-            color: #FFFFFF !important;
-            margin-bottom: 15px !important;
+            text-align: left !important;
+            color: #E5E7EB !important;
+            transition: all 0.18s ease !important;
+            box-shadow: none !important;
+            display: flex !important;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            line-height: 1.25 !important;
         }
 
-        div[data-testid="column"]:first-child button[kind]:hover {
+        .pitch-list .stButton > button:hover {
             border-color: #E50914 !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2) !important;
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18) !important;
         }
 
-        /* Selected pitch highlight */
-        div[data-testid="column"]:first-child button[kind="primary"] {
+        /* Selected pitch highlight: red border only (no fill) */
+        .pitch-list .stButton > button[kind="primary"],
+        .pitch-list .stButton > button[data-testid="baseButton-primary"] {
+            background: transparent !important;
             background-color: transparent !important;
-            border: 2px solid #E50914 !important;
+            border-color: #E50914 !important;
             box-shadow: none !important;
             transform: none !important;
+            color: #FFFFFF !important;
         }
 
-        /* Typography inside the card-button */
-        div[data-testid="column"]:first-child button[kind] {
-            line-height: 1.25 !important;
+        /* De-emphasize secondary fill if Streamlit injects it */
+        .pitch-list .stButton > button[kind="secondary"],
+        .pitch-list .stButton > button[data-testid="baseButton-secondary"] {
+            background: transparent !important;
+            background-color: transparent !important;
         }
         </style>
         """, unsafe_allow_html=True)
 
         st.markdown("<h3 style='margin: 0 0 20px 0;'>Your Pitches</h3>",
                     unsafe_allow_html=True)
+
+        st.markdown("<div class='pitch-list'>", unsafe_allow_html=True)
 
         # Render pitch cards - CLICKABLE VERSION
         for pid, p in pitches.items():
@@ -1446,6 +1461,8 @@ def screen_pitches():
             ):
                 st.session_state.sel_p = pid
                 st.rerun()
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
     # Right Column - Pitch Details
     with col2:
