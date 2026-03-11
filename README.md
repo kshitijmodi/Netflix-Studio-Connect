@@ -1,3 +1,16 @@
+---
+title: Netflix Studio Connect
+emoji: 🎬
+colorFrom: red
+colorTo: gray
+sdk: streamlit
+sdk_version: "1.28.0"
+app_file: app.py
+pinned: true
+license: mit
+short_description: AI-powered SaaS platform for Netflix partner collaboration
+---
+
 <p align="center">
   <img src="https://img.shields.io/badge/Netflix-Studio%20Connect-E50914?style=for-the-badge&logo=netflix&logoColor=white" alt="Netflix Studio Connect"/>
 </p>
@@ -13,6 +26,7 @@
   <img src="https://img.shields.io/badge/streamlit-1.28+-FF4B4B?style=flat-square&logo=streamlit&logoColor=white"/>
   <img src="https://img.shields.io/badge/AI-Groq%20%7C%20Llama%203.1-00D4AA?style=flat-square"/>
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square"/>
+  <img src="https://img.shields.io/badge/HF%20Space-Live-yellow?style=flat-square&logo=huggingface"/>
 </p>
 
 ---
@@ -24,6 +38,16 @@ Netflix Studio Connect replaces fragmented email chains, spreadsheets, and disco
 Built for three distinct personas (**Studio Executives**, **Producers**, **Netflix Executives**) with role-based access control, multi-studio data isolation, and an AI engine powered by Groq API (Llama 3.1-8b) that delivers real-time pitch analysis and natural language analytics.
 
 **Think:** *Salesforce meets Asana meets Netflix Analytics — purpose-built for entertainment production.*
+
+---
+
+## Demo Credentials
+
+| Role | Username | Password |
+|---|---|---|
+| Studio Executive | `studio_exec` | `studio123` |
+| Producer | `producer` | `producer123` |
+| Netflix Executive | `netflix_exec` | `netflix123` |
 
 ---
 
@@ -64,11 +88,11 @@ Built for three distinct personas (**Studio Executives**, **Producers**, **Netfl
 | Backend | Python 3.10+ |
 | Database | JSON-based (MVP) → PostgreSQL (production) |
 | Auth | Role-based access control |
-| Hosting | Replit / AWS / GCP |
+| Hosting | Hugging Face Spaces |
 
 ---
 
-## Getting Started
+## Local Development
 
 ### Prerequisites
 
@@ -78,54 +102,41 @@ Built for three distinct personas (**Studio Executives**, **Producers**, **Netfl
 ### Installation
 
 ```bash
-# Clone the repo
-git clone https://github.com/yourusername/Netflix-Studio-Connect.git
-cd Netflix-Studio-Connect
+git clone https://huggingface.co/spaces/iamkshitij/netflix-studio-connect
+cd netflix-studio-connect
 
-# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Install dependencies
 pip install -r requirements.txt
 ```
 
 ### Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file or set in HF Space Settings → Secrets:
 
-```env
+```
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
-### Run the Application
+> **HF Spaces:** Go to your Space → Settings → Repository secrets → Add `GROQ_API_KEY`
+
+### Run Locally
 
 ```bash
 streamlit run app.py
 ```
-
-The app will launch at `http://localhost:8501`.
-
-### Demo Credentials
-
-| Role | Username | Password |
-|---|---|---|
-| Studio Executive | `studio_exec` | `studio123` |
-| Producer | `producer` | `producer123` |
-| Netflix Executive | `netflix_exec` | `netflix123` |
 
 ---
 
 ## Project Structure
 
 ```
-Netflix-Studio-Connect/
+netflix-studio-connect/
 ├── app.py                  # Main Streamlit application
 ├── requirements.txt        # Python dependencies
-├── .env                    # Environment variables (not committed)
-├── .gitignore
-├── LICENSE
-├── README.md
+├── README.md               # This file (HF Space config + docs)
+├── .gitattributes          # HF LFS config
 ├── data/
 │   ├── users.json          # User credentials & roles
 │   ├── pitches.json        # Pitch submissions
@@ -181,7 +192,7 @@ Netflix-Studio-Connect/
 - [x] **Phase 1** — Core pitch portal, RBAC, AI feedback, messaging
 - [x] **Phase 2** — Multi-studio support, production suite, budget tracking
 - [ ] **Phase 3** — AI analytics chatbot, cross-studio intelligence, predictive models
-- [ ] **Phase 4** — Third-party integrations (Movie Magic, StudioBinder), mobile app, white-label
+- [ ] **Phase 4** — Third-party integrations, mobile app, white-label
 
 ---
 
@@ -202,8 +213,6 @@ The production management software market for Media & Entertainment is valued at
 ---
 
 ## License
-
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
 
 ```
 MIT License
@@ -231,9 +240,6 @@ SOFTWARE.
 
 ---
 
-## Contact
-
-**Kshitij** — Product Manager
-- GitHub: [@iamkshitij](https://github.com/iamkshitij)
-
----
+<p align="center">
+  <i>Built with Streamlit · Powered by Groq AI · Hosted on Hugging Face Spaces</i>
+</p>
