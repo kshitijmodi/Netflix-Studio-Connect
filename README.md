@@ -1,14 +1,15 @@
 ---
-title: Streamlit Template Space
+title: Netflix Studio Connect
 emoji: 🚀
 colorFrom: red
 colorTo: red
 sdk: docker
 app_port: 8501
 tags:
-  - streamlit
+- streamlit
 pinned: false
-short_description: Streamlit template space
+short_description: Unified SaaS platform connecting partner studios and Netflix
+license: mit
 ---
 
 # Welcome to Streamlit!
