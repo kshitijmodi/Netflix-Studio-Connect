@@ -43,8 +43,8 @@ Built for three distinct personas (**Studio Executives**, **Producers**, **Netfl
 
 | Role | Username | Password |
 |---|---|---|
-| Studio Executive | `studio_exec` | `studio123` |
-| Producer | `producer` | `producer123` |
+| Phoenix Studio Executive | `phoenix_exec` | `studio123` |
+| Meridian Studio Executive | `meridian_exec` | `producer123` |
 | Netflix Executive | `netflix_exec` | `netflix123` |
 
 ---
