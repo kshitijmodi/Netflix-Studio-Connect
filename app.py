@@ -1388,6 +1388,32 @@ def screen_pitches():
             padding: 20px !important;
             min-height: 700px !important;
         }
+
+        /* Make the pitch "card" itself a button */
+        div[data-testid="column"]:first-child button[kind] {
+            background-color: #1A1F2E !important;
+            border: 2px solid #4A5568 !important;
+            border-radius: 10px !important;
+            padding: 16px !important;
+            text-align: left !important;
+            height: auto !important;
+            white-space: pre-line !important; /* respect \n in label */
+            transition: all 0.2s ease !important;
+            color: #FFFFFF !important;
+            margin-bottom: 15px !important;
+        }
+
+        div[data-testid="column"]:first-child button[kind]:hover {
+            border-color: #E50914 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2) !important;
+        }
+
+        /* Selected pitch highlight */
+        div[data-testid="column"]:first-child button[kind="primary"] {
+            background-color: rgba(229, 9, 20, 0.08) !important;
+            border: 2px solid #E50914 !important;
+        }
         </style>
         """, unsafe_allow_html=True)
 
@@ -1400,64 +1426,16 @@ def screen_pitches():
             status = p.get('status', "Under Review")
             days_ago = str(p.get('days_ago', "Recently"))
 
-            # Get badge color
-            if status == "Under Review":
-                badge_color = "#FBBF24"
-            elif status == "Approved":
-                badge_color = "#34D399"
-            else:
-                badge_color = "#60A5FA"
-
-            # Determine card styling
-            if selected:
-                card_bg = "rgba(229, 9, 20, 0.08)"
-                card_border = "#E50914"
-            else:
-                card_bg = "#1A1F2E"
-                card_border = "#4A5568"
-
-            # Create container for the card
-            card_container = st.container()
-
-            with card_container:
-                # Render the card with a unique key
-                card_html = f"""
-                <div class='pitch-clickable-card' style='background: {card_bg}; border: 2px solid {card_border}; border-radius: 10px; padding: 16px;'>
-                    <div style='display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;'>
-                        <h4 style='margin: 0; font-size: 16px; color: #FFFFFF;'>{p['title']}</h4>
-                        <span style='background: rgba(245, 158, 11, 0.1); color: {badge_color}; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600;'>{status}</span>
-                    </div>
-                    <p style='color: #9CA3AF; font-size: 13px; margin: 5px 0;'>{p['genre']}</p>
-                    <div style='display: flex; align-items: center; color: #6B7280; font-size: 12px; margin-top: 8px;'>
-                        <span>🕒</span>
-                        <span style='margin-left: 5px;'>{days_ago}</span>
-                    </div>
-                </div>
-                """
-                st.markdown(card_html, unsafe_allow_html=True)
-
-                # Invisible button that spans the full width - THIS MAKES IT CLICKABLE
-                if st.button("select_pitch", key=f"pitch_select_{pid}", 
-                            help=f"Click to view {p['title']}", 
-                            use_container_width=True):
-                    st.session_state.sel_p = pid
-                    st.rerun()
-
-            # Apply CSS to hide the button but keep it functional
-            st.markdown(f"""
-            <style>
-            /* Hide the button that was just created */
-            button[kind="secondary"]:has([data-testid="baseButton-secondary"]) {{
-                position: relative !important;
-                margin-top: -95px !important;
-                opacity: 0 !important;
-                height: 95px !important;
-                width: 100% !important;
-                cursor: pointer !important;
-                z-index: 10 !important;
-            }}
-            </style>
-            """, unsafe_allow_html=True)
+            label = f"{p.get('title','')}\n{p.get('genre','')}\n🕒 {days_ago}   •   {status}"
+            if st.button(
+                label,
+                key=f"pitch_select_{pid}",
+                help=f"Click to view {p.get('title','this pitch')}",
+                type=("primary" if selected else "secondary"),
+                use_container_width=True,
+            ):
+                st.session_state.sel_p = pid
+                st.rerun()
 
     # Right Column - Pitch Details
     with col2:
