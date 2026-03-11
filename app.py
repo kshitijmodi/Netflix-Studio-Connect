@@ -1399,59 +1399,45 @@ def screen_pitches():
             min-height: 700px !important;
         }
 
-        /* Pitch list as true clickable cards (no Streamlit widget theming) */
-        .pitch-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 8px;
+        /* Pitch list as Streamlit buttons styled like cards (no navigation => no logout) */
+        div[data-testid="column"]:first-child button[data-testid^="baseButton-"] {
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            border: 2px solid #4A5568 !important;
+            border-radius: 10px !important;
+            padding: 14px 16px !important;
+            width: 100% !important;
+            height: auto !important;
+            text-align: left !important;
+            transition: all 0.18s ease !important;
+            box-shadow: none !important;
         }
-        .pitch-card-link {
-            text-decoration: none !important;
-            color: inherit !important;
-            display: block;
-            background: transparent;
-            border: 2px solid #4A5568;
-            border-radius: 10px;
-            padding: 14px 16px;
-            transition: all 0.18s ease;
+
+        div[data-testid="column"]:first-child button[data-testid^="baseButton-"]:hover {
+            border-color: #E50914 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18) !important;
         }
-        .pitch-card-link:hover {
-            border-color: #E50914;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18);
+
+        /* Selected: red border only (no red fill) */
+        div[data-testid="column"]:first-child button[data-testid="baseButton-primary"] {
+            background: transparent !important;
+            background-color: transparent !important;
+            border-color: #E50914 !important;
+            box-shadow: none !important;
+            transform: none !important;
         }
-        .pitch-card-link.selected {
-            border-color: #E50914;
-            box-shadow: none;
-            transform: none;
+
+        /* Ensure multiline label layout + readable text */
+        div[data-testid="column"]:first-child button[data-testid^="baseButton-"] * {
+            white-space: pre-line !important;
         }
-        .pitch-title {
-            font-size: 16px;
-            font-weight: 650;
-            color: #FFFFFF;
-            margin: 0;
-            line-height: 1.2;
-        }
-        .pitch-subline {
-            margin-top: 6px;
-            font-size: 13px;
-            color: #9CA3AF;
-        }
-        .pitch-meta {
-            margin-top: 8px;
-            font-size: 12px;
-            color: #6B7280;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .pitch-status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            display: inline-block;
+
+        div[data-testid="column"]:first-child button[data-testid^="baseButton-"] span {
+            color: #E5E7EB !important;
+            line-height: 1.25 !important;
+            text-align: left !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1460,54 +1446,24 @@ def screen_pitches():
                     unsafe_allow_html=True)
 
         if pitches:
-            st.markdown("<div class='pitch-list'>", unsafe_allow_html=True)
             for pid, p in pitches.items():
                 selected = (st.session_state.get('sel_p') == pid)
                 status = p.get('status', "Under Review")
                 days_ago = str(p.get('days_ago', "Recently"))
 
-                # small status color dot
-                if status == "Under Review":
-                    dot = "#FBBF24"
-                elif status == "Approved":
-                    dot = "#34D399"
-                elif status == "Feedback Received":
-                    dot = "#60A5FA"
-                else:
-                    dot = "#9CA3AF"
-
-                card_cls = "pitch-card-link selected" if selected else "pitch-card-link"
                 title_txt = p.get('title', '')
                 genre_txt = p.get('genre', '')
+                label = f"{title_txt}\n{genre_txt}\n🕒 {days_ago}   •   {status}"
 
-                # Preserve existing query params, only override sel_p
-                try:
-                    qp = dict(st.query_params)
-                except Exception:
-                    qp = st.experimental_get_query_params()
-                qp["sel_p"] = pid
-                try:
-                    from urllib.parse import urlencode
-                    href = "?" + urlencode(qp, doseq=True)
-                except Exception:
-                    href = f"?sel_p={pid}"
-
-                st.markdown(
-                    f"""
-                    <a class="{card_cls}" href="{href}" target="_self">
-                        <div class="pitch-title">{title_txt}</div>
-                        <div class="pitch-subline">{genre_txt}</div>
-                        <div class="pitch-meta">
-                            <span>🕒 {days_ago}</span>
-                            <span>•</span>
-                            <span class="pitch-status-dot" style="background:{dot};"></span>
-                            <span>{status}</span>
-                        </div>
-                    </a>
-                    """,
-                    unsafe_allow_html=True,
-                )
-            st.markdown("</div>", unsafe_allow_html=True)
+                if st.button(
+                    label,
+                    key=f"pitch_select_{pid}",
+                    help=f"Click to view {title_txt}",
+                    type=("primary" if selected else "secondary"),
+                    use_container_width=True,
+                ):
+                    st.session_state.sel_p = pid
+                    st.rerun()
 
     # Right Column - Pitch Details
     with col2:
