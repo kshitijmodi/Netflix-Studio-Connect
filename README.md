@@ -3,12 +3,10 @@ title: Netflix Studio Connect
 emoji: 🎬
 colorFrom: red
 colorTo: gray
-sdk: streamlit
-sdk_version: "1.28.0"
-app_file: app.py
+sdk: docker
 pinned: true
 license: mit
-short_description: AI-powered SaaS platform for Netflix partner collaboration
+short_description: AI-powered SaaS for Netflix partner studios
 ---
 
 <p align="center">
