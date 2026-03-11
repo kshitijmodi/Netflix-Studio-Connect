@@ -1480,9 +1480,21 @@ def screen_pitches():
                 title_txt = p.get('title', '')
                 genre_txt = p.get('genre', '')
 
+                # Preserve existing query params, only override sel_p
+                try:
+                    qp = dict(st.query_params)
+                except Exception:
+                    qp = st.experimental_get_query_params()
+                qp["sel_p"] = pid
+                try:
+                    from urllib.parse import urlencode
+                    href = "?" + urlencode(qp, doseq=True)
+                except Exception:
+                    href = f"?sel_p={pid}"
+
                 st.markdown(
                     f"""
-                    <a class="{card_cls}" href="?sel_p={pid}">
+                    <a class="{card_cls}" href="{href}" target="_self">
                         <div class="pitch-title">{title_txt}</div>
                         <div class="pitch-subline">{genre_txt}</div>
                         <div class="pitch-meta">
