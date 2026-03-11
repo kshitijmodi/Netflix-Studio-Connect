@@ -1363,6 +1363,16 @@ def screen_pitches():
     if studio_filter != "All Studios":
         pitches = filter_by_studio(pitches, studio_filter)
 
+    # Allow selecting a pitch via query param (used by clickable HTML cards)
+    try:
+        qp_sel = st.query_params.get("sel_p")
+    except Exception:
+        qp_sel = st.experimental_get_query_params().get("sel_p", [None])[0]
+    if qp_sel:
+        qp_sel = str(qp_sel)
+        if qp_sel in pitches:
+            st.session_state.sel_p = qp_sel
+
     # Initialize selection to first pitch if not set; fix stale selection when filter changes
     if not pitches:
         st.session_state.sel_p = None
@@ -1389,65 +1399,59 @@ def screen_pitches():
             min-height: 700px !important;
         }
 
-        /* Pitch selector as RADIO + card row (radio visible beside card) */
-        div[data-testid="column"]:first-child div[role="radiogroup"] > label[data-baseweb="radio"]{
-            margin: 0 0 14px 0 !important;
+        /* Pitch list as true clickable cards (no Streamlit widget theming) */
+        .pitch-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 8px;
         }
-
-        /* Layout: radio at left, card surface at right */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"]{
-            display: flex !important;
-            align-items: stretch !important;
-            gap: 12px !important;
+        .pitch-card-link {
+            text-decoration: none !important;
+            color: inherit !important;
+            display: block;
+            background: transparent;
+            border: 2px solid #4A5568;
+            border-radius: 10px;
+            padding: 14px 16px;
+            transition: all 0.18s ease;
         }
-
-        /* Ensure the radio control is visible and aligned */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:first-child{
-            display: flex !important;
-            align-items: flex-start !important;
-            padding-top: 18px !important; /* align with title line */
-            flex: 0 0 auto !important;
+        .pitch-card-link:hover {
+            border-color: #E50914;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18);
         }
-
-        /* Card surface (2nd child div in the label) */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:last-child{
-            background: transparent !important;
-            border: 2px solid #4A5568 !important;
-            border-radius: 10px !important;
-            padding: 14px 16px !important;
-            width: 100% !important;
-            transition: all 0.18s ease !important;
-            box-shadow: none !important;
+        .pitch-card-link.selected {
+            border-color: #E50914;
+            box-shadow: none;
+            transform: none;
         }
-
-        /* Hover: subtle lift */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"]:hover > div:last-child{
-            border-color: #E50914 !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18) !important;
+        .pitch-title {
+            font-size: 16px;
+            font-weight: 650;
+            color: #FFFFFF;
+            margin: 0;
+            line-height: 1.2;
         }
-
-        /* Selected: red border only */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] input:checked ~ div:last-child{
-            background: transparent !important;
-            border-color: #E50914 !important;
-            transform: none !important;
-            box-shadow: none !important;
+        .pitch-subline {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #9CA3AF;
         }
-
-        /* Text inside card: always visible */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:last-child span{
-            white-space: pre-line !important;
-            text-align: left !important;
-            line-height: 1.25 !important;
-            display: block !important;
-            color: #E5E7EB !important;
+        .pitch-meta {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #6B7280;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-
-        /* Title emphasis: first line brighter/bolder when possible */
-        div[data-testid="column"]:first-child label[data-baseweb="radio"] > div:last-child span:first-child{
-            color: #FFFFFF !important;
-            font-weight: 650 !important;
+        .pitch-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            display: inline-block;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1456,32 +1460,42 @@ def screen_pitches():
                     unsafe_allow_html=True)
 
         if pitches:
-            pitch_ids = list(pitches.keys())
-
-            def _pitch_label(pid):
-                p = pitches.get(pid, {})
+            st.markdown("<div class='pitch-list'>", unsafe_allow_html=True)
+            for pid, p in pitches.items():
+                selected = (st.session_state.get('sel_p') == pid)
                 status = p.get('status', "Under Review")
                 days_ago = str(p.get('days_ago', "Recently"))
+
+                # small status color dot
+                if status == "Under Review":
+                    dot = "#FBBF24"
+                elif status == "Approved":
+                    dot = "#34D399"
+                elif status == "Feedback Received":
+                    dot = "#60A5FA"
+                else:
+                    dot = "#9CA3AF"
+
+                card_cls = "pitch-card-link selected" if selected else "pitch-card-link"
                 title_txt = p.get('title', '')
                 genre_txt = p.get('genre', '')
-                meta_txt = f"🕒 {days_ago}   •   {status}"
-                return f"{title_txt}\n{genre_txt}\n{meta_txt}"
 
-            current_sel = st.session_state.get('sel_p')
-            index = pitch_ids.index(current_sel) if current_sel in pitch_ids else 0
-
-            selected_pid = st.radio(
-                "Pitch selector",
-                options=pitch_ids,
-                index=index,
-                format_func=_pitch_label,
-                label_visibility="collapsed",
-                key="pitch_selector_radio",
-            )
-
-            if selected_pid and st.session_state.get('sel_p') != selected_pid:
-                st.session_state.sel_p = selected_pid
-                st.rerun()
+                st.markdown(
+                    f"""
+                    <a class="{card_cls}" href="?sel_p={pid}">
+                        <div class="pitch-title">{title_txt}</div>
+                        <div class="pitch-subline">{genre_txt}</div>
+                        <div class="pitch-meta">
+                            <span>🕒 {days_ago}</span>
+                            <span>•</span>
+                            <span class="pitch-status-dot" style="background:{dot};"></span>
+                            <span>{status}</span>
+                        </div>
+                    </a>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            st.markdown("</div>", unsafe_allow_html=True)
 
     # Right Column - Pitch Details
     with col2:
