@@ -1363,8 +1363,10 @@ def screen_pitches():
     if studio_filter != "All Studios":
         pitches = filter_by_studio(pitches, studio_filter)
 
-    # Initialize selection to first pitch if not set
-    if 'sel_p' not in st.session_state and pitches:
+    # Initialize selection to first pitch if not set; fix stale selection when filter changes
+    if not pitches:
+        st.session_state.sel_p = None
+    elif 'sel_p' not in st.session_state or st.session_state.sel_p not in pitches:
         st.session_state.sel_p = next(iter(pitches))
 
     # Status badge helper
@@ -1459,7 +1461,7 @@ def screen_pitches():
 
     # Right Column - Pitch Details
     with col2:
-        sid = st.session_state.get('sel_p', next(iter(pitches), None))
+        sid = st.session_state.get('sel_p')
         if sid and sid in pitches:
             p = pitches[sid]
             status = p.get('status', "Under Review")
@@ -1696,6 +1698,11 @@ def screen_pitches():
                 st.button("👁 View Full Pitch", key=f"view_{sid}", use_container_width=True)
             with col_btn2:
                 st.button("💬 Message Netflix Team", key=f"msg_{sid}", use_container_width=True)
+        else:
+            if not pitches:
+                st.info("No pitches to display. Submit a new pitch or adjust the studio filter.")
+            else:
+                st.info("Select a pitch from the list to view details.")
 
 
 # ============================================================================
