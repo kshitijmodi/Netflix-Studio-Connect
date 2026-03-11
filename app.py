@@ -1090,13 +1090,13 @@ def screen_pitches():
     <style>
     /* Pitch card styling */
     .pitch-card-button button {
-        background-color: #1A1F2E !important;
+        background-color: transparent !important;
         border: 2px solid #4A5568 !important;
         border-radius: 10px !important;
         padding: 16px !important;
         text-align: left !important;
         height: auto !important;
-        white-space: normal !important;
+        white-space: pre-line !important; /* respect \n in label */
         transition: all 0.2s ease !important;
         color: #FFFFFF !important;
     }
@@ -1108,7 +1108,6 @@ def screen_pitches():
     }
 
     .pitch-card-button button[kind="primary"] {
-        background-color: rgba(229, 9, 20, 0.08) !important;
         border: 2px solid #E50914 !important;
     }
 
@@ -1398,47 +1397,6 @@ def screen_pitches():
             padding: 20px !important;
             min-height: 700px !important;
         }
-
-        /* Pitch list as Streamlit buttons styled like cards (no navigation => no logout) */
-        div[data-testid="column"]:first-child button[data-testid^="baseButton-"] {
-            background: transparent !important;
-            background-color: transparent !important;
-            background-image: none !important;
-            border: 2px solid #4A5568 !important;
-            border-radius: 10px !important;
-            padding: 14px 16px !important;
-            width: 100% !important;
-            height: auto !important;
-            text-align: left !important;
-            transition: all 0.18s ease !important;
-            box-shadow: none !important;
-        }
-
-        div[data-testid="column"]:first-child button[data-testid^="baseButton-"]:hover {
-            border-color: #E50914 !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.18) !important;
-        }
-
-        /* Selected: red border only (no red fill) */
-        div[data-testid="column"]:first-child button[data-testid="baseButton-primary"] {
-            background: transparent !important;
-            background-color: transparent !important;
-            border-color: #E50914 !important;
-            box-shadow: none !important;
-            transform: none !important;
-        }
-
-        /* Ensure multiline label layout + readable text */
-        div[data-testid="column"]:first-child button[data-testid^="baseButton-"] * {
-            white-space: pre-line !important;
-        }
-
-        div[data-testid="column"]:first-child button[data-testid^="baseButton-"] span {
-            color: #E5E7EB !important;
-            line-height: 1.25 !important;
-            text-align: left !important;
-        }
         </style>
         """, unsafe_allow_html=True)
 
@@ -1455,6 +1413,7 @@ def screen_pitches():
                 genre_txt = p.get('genre', '')
                 label = f"{title_txt}\n{genre_txt}\n🕒 {days_ago}   •   {status}"
 
+                st.markdown("<div class='pitch-card-button'>", unsafe_allow_html=True)
                 if st.button(
                     label,
                     key=f"pitch_select_{pid}",
@@ -1464,6 +1423,7 @@ def screen_pitches():
                 ):
                     st.session_state.sel_p = pid
                     st.rerun()
+                st.markdown("</div>", unsafe_allow_html=True)
 
     # Right Column - Pitch Details
     with col2:
