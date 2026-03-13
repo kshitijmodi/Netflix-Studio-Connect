@@ -1088,39 +1088,38 @@ def screen_pitches():
     # Add pitch-specific CSS
     st.markdown("""
     <style>
-    /* Pitch card styling — target Streamlit's actual rendered button elements */
-    .pitch-card-button button,
-    .pitch-card-button [data-testid="baseButton-secondary"],
-    .pitch-card-button [data-testid="baseButton-primary"] {
-        background: transparent !important;
-        background-color: transparent !important;
-        border: 2px solid #4A5568 !important;
-        border-radius: 10px !important;
-        padding: 16px !important;
-        text-align: left !important;
-        height: auto !important;
-        min-height: 80px !important;
-        white-space: pre-line !important;
-        transition: all 0.2s ease !important;
-        color: #E5E7EB !important;
-        font-size: 14px !important;
-        line-height: 1.5 !important;
+    .pitch-html-card {
+        background: transparent;
+        border: 2px solid #374151;
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
     }
-
-    .pitch-card-button button:hover,
-    .pitch-card-button [data-testid="baseButton-secondary"]:hover,
-    .pitch-card-button [data-testid="baseButton-primary"]:hover {
-        border-color: #E50914 !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2) !important;
-        color: #FFFFFF !important;
+    .pitch-html-card:hover {
+        border-color: #E50914;
+        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.15);
+        transform: translateY(-1px);
     }
-
-    /* Selected state — primary type maps to this testid */
-    .pitch-card-button [data-testid="baseButton-primary"] {
-        border: 2px solid #E50914 !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.3) !important;
+    .pitch-html-card.selected {
+        border-color: #E50914;
+        box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.25);
+    }
+    .pitch-html-card .card-title {
+        font-weight: 600;
+        font-size: 15px;
+        color: #F9FAFB;
+        margin-bottom: 3px;
+    }
+    .pitch-html-card .card-genre {
+        font-size: 12px;
+        color: #9CA3AF;
+        margin-bottom: 8px;
+    }
+    .pitch-html-card .card-meta {
+        font-size: 12px;
+        color: #6B7280;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -1406,26 +1405,22 @@ def screen_pitches():
                     unsafe_allow_html=True)
 
         if pitches:
+            cards_html = ""
             for pid, p in pitches.items():
                 selected = (st.session_state.get('sel_p') == pid)
                 status = p.get('status', "Under Review")
                 days_ago = str(p.get('days_ago', "Recently"))
-
                 title_txt = p.get('title', '')
                 genre_txt = p.get('genre', '')
-                label = f"{title_txt}\n{genre_txt}\n🕒 {days_ago}   •   {status}"
-
-                st.markdown("<div class='pitch-card-button'>", unsafe_allow_html=True)
-                if st.button(
-                    label,
-                    key=f"pitch_select_{pid}",
-                    help=f"Click to view {title_txt}",
-                    type=("primary" if selected else "secondary"),
-                    use_container_width=True,
-                ):
-                    st.session_state.sel_p = pid
-                    st.rerun()
-                st.markdown("</div>", unsafe_allow_html=True)
+                sel_class = "selected" if selected else ""
+                cards_html += f"""
+                <div class='pitch-html-card {sel_class}'
+                     onclick="window.location.href = window.location.pathname + '?sel_p={pid}'">
+                    <div class='card-title'>{title_txt}</div>
+                    <div class='card-genre'>{genre_txt}</div>
+                    <div class='card-meta'>🕒 {days_ago} &nbsp;•&nbsp; {status}</div>
+                </div>"""
+            st.markdown(cards_html, unsafe_allow_html=True)
 
     # Right Column - Pitch Details
     with col2:
