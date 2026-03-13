@@ -1088,12 +1088,8 @@ def screen_pitches():
     # Add pitch-specific CSS
     st.markdown("""
     <style>
-    /* Scope pitch card button styles using :has() on the column that contains
-       our unique marker span. This avoids fighting Streamlit's shadow DOM and
-       wrapper-div tricks that don't actually nest in the real DOM. */
-
-    [data-testid="stVerticalBlock"]:has(#pitch-list-start) [data-testid="baseButton-secondary"],
-    [data-testid="stVerticalBlock"]:has(#pitch-list-start) [data-testid="baseButton-primary"] {
+    /* Unselected pitch cards — target button element directly (version-agnostic) */
+    [data-testid="stVerticalBlock"]:has(#pitch-list-start) button {
         background: transparent !important;
         background-color: transparent !important;
         border: 2px solid #374151 !important;
@@ -1106,25 +1102,26 @@ def screen_pitches():
         padding: 14px 16px !important;
         font-size: 14px !important;
         line-height: 1.5 !important;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
     }
-
-    [data-testid="stVerticalBlock"]:has(#pitch-list-start) [data-testid="baseButton-secondary"]:hover,
-    [data-testid="stVerticalBlock"]:has(#pitch-list-start) [data-testid="baseButton-primary"]:hover {
+    [data-testid="stVerticalBlock"]:has(#pitch-list-start) button:hover {
         border-color: #E50914 !important;
         box-shadow: 0 4px 12px rgba(229, 9, 20, 0.15) !important;
-        transform: translateY(-1px) !important;
         color: #FFFFFF !important;
     }
-
-    /* Selected state — repeat background override so Streamlit's primary styles don't win */
-    [data-testid="stVerticalBlock"]:has(#pitch-list-start) [data-testid="baseButton-primary"] {
-        background: transparent !important;
-        background-color: transparent !important;
-        border-color: #E50914 !important;
-        box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.25) !important;
-        color: #E5E7EB !important;
+    /* Selected card rendered as HTML div — bypasses Streamlit primary button CSS entirely */
+    .pitch-card-selected {
+        background: transparent;
+        border: 2px solid #E50914;
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-bottom: 4px;
+        min-height: 80px;
+        box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.2);
     }
+    .pitch-card-selected .pcs-title { font-weight: 600; font-size: 15px; color: #F9FAFB; margin-bottom: 3px; }
+    .pitch-card-selected .pcs-genre { font-size: 12px; color: #9CA3AF; margin-bottom: 8px; }
+    .pitch-card-selected .pcs-meta  { font-size: 12px; color: #6B7280; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -1408,7 +1405,7 @@ def screen_pitches():
         st.markdown("<h3 style='margin: 0 0 20px 0;'>Your Pitches</h3>",
                     unsafe_allow_html=True)
 
-        # Unique marker lets CSS scope styles to only these buttons via :has()
+        # Unique marker lets CSS scope button styles via :has()
         st.markdown("<span id='pitch-list-start'></span>", unsafe_allow_html=True)
 
         if pitches:
@@ -1418,15 +1415,20 @@ def screen_pitches():
                 days_ago = str(p.get('days_ago', "Recently"))
                 title_txt = p.get('title', '')
                 genre_txt = p.get('genre', '')
-                label = f"{title_txt}\n{genre_txt}\n🕒 {days_ago}  •  {status}"
-                if st.button(
-                    label,
-                    key=f"pitch_select_{pid}",
-                    type="primary" if selected else "secondary",
-                    use_container_width=True,
-                ):
-                    st.session_state.sel_p = pid
-                    st.rerun()
+
+                if selected:
+                    # Pure HTML — no Streamlit button styling to fight
+                    st.markdown(f"""
+                    <div class='pitch-card-selected'>
+                        <div class='pcs-title'>{title_txt}</div>
+                        <div class='pcs-genre'>{genre_txt}</div>
+                        <div class='pcs-meta'>🕒 {days_ago} &nbsp;•&nbsp; {status}</div>
+                    </div>""", unsafe_allow_html=True)
+                else:
+                    label = f"{title_txt}\n{genre_txt}\n🕒 {days_ago}  •  {status}"
+                    if st.button(label, key=f"pitch_select_{pid}", use_container_width=True):
+                        st.session_state.sel_p = pid
+                        st.rerun()
 
     # Right Column - Pitch Details
     with col2:
