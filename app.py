@@ -163,9 +163,15 @@ st.markdown("""
         height: 32px !important;
     }
 
-    /* Remove white corner borders from menu */
+    /* Remove white corner artifacts from streamlit-option-menu Bootstrap nav */
     .st-emotion-cache-1gulkj5, .st-emotion-cache-10oheav {
         border: none !important;
+    }
+    section[data-testid="stSidebar"] nav,
+    section[data-testid="stSidebar"] .nav,
+    section[data-testid="stSidebar"] ul.nav {
+        background-color: #0B0E16 !important;
+        border-radius: 0 !important;
     }
 
     [data-testid="stSidebarNav"] > ul {
@@ -2336,7 +2342,8 @@ def main():
                 styles={
                     "container": {
                         "background-color": "#0B0E16",
-                        "padding": "5px"
+                        "padding": "5px",
+                        "border-radius": "0px"
                     },
                     "nav-link": {
                         "color": "#9CA3AF",
