@@ -1088,8 +1088,10 @@ def screen_pitches():
     # Add pitch-specific CSS
     st.markdown("""
     <style>
-    /* Pitch card styling */
-    .pitch-card-button button {
+    /* Pitch card styling — target Streamlit's actual rendered button elements */
+    .pitch-card-button button,
+    .pitch-card-button [data-testid="baseButton-secondary"],
+    .pitch-card-button [data-testid="baseButton-primary"] {
         background: transparent !important;
         background-color: transparent !important;
         border: 2px solid #4A5568 !important;
@@ -1097,32 +1099,28 @@ def screen_pitches():
         padding: 16px !important;
         text-align: left !important;
         height: auto !important;
-        white-space: pre-line !important; /* respect \n in label */
+        min-height: 80px !important;
+        white-space: pre-line !important;
         transition: all 0.2s ease !important;
         color: #E5E7EB !important;
+        font-size: 14px !important;
+        line-height: 1.5 !important;
     }
 
-    .pitch-card-button button:hover {
+    .pitch-card-button button:hover,
+    .pitch-card-button [data-testid="baseButton-secondary"]:hover,
+    .pitch-card-button [data-testid="baseButton-primary"]:hover {
         border-color: #E50914 !important;
         transform: translateY(-2px) !important;
         box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2) !important;
-    }
-
-    .pitch-card-button button[kind="primary"] {
-        background: transparent !important;
-        background-color: transparent !important;
-        border: 2px solid #E50914 !important;
         color: #FFFFFF !important;
     }
 
-    .pitch-clickable-card {
-        cursor: pointer;
-        transition: all 0.2s ease;
-        margin-bottom: 15px;
-    }
-    .pitch-clickable-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2);
+    /* Selected state — primary type maps to this testid */
+    .pitch-card-button [data-testid="baseButton-primary"] {
+        border: 2px solid #E50914 !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.3) !important;
     }
     </style>
     """, unsafe_allow_html=True)
