@@ -1117,11 +1117,13 @@ def screen_pitches():
         color: #FFFFFF !important;
     }
 
-    /* Selected state */
+    /* Selected state — repeat background override so Streamlit's primary styles don't win */
     [data-testid="stVerticalBlock"]:has(#pitch-list-start) [data-testid="baseButton-primary"] {
+        background: transparent !important;
+        background-color: transparent !important;
         border-color: #E50914 !important;
         box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.25) !important;
-        color: #FFFFFF !important;
+        color: #E5E7EB !important;
     }
     </style>
     """, unsafe_allow_html=True)
