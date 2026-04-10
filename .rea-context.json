@@ -1,0 +1,52 @@
+[
+  {
+    "role": "user",
+    "text": "1 Error: API request error (400): {\"error\": {\"message\":\"Organization has been restricted. Please reach out to support if you believe this was in error.\", \"type\":\"invalid_request_error\",\"code\":\"organization restricted'}}",
+    "timestamp": "2026-04-10T19:21:54.050Z"
+  },
+  {
+    "role": "assistant",
+    "text": "Let me look at the codebase to understand where this API call is being made.This error is not from your application code — your app uses Groq, not Anthropic. The error:\n\n```\nOrganization has been restricted. Please reach out to support if you believe this was in error.\n```\n\nis an **Anthropic account-level restriction** on the organization associated with your API key. This is not something that can be fixed in code.\n\n**Next steps:**\n1. Contact Anthropic support at [support.anthropic.com](https:/",
+    "timestamp": "2026-04-10T19:21:54.063Z"
+  },
+  {
+    "role": "user",
+    "text": "Check if the groq model being used is decommissioned",
+    "timestamp": "2026-04-10T19:34:13.255Z"
+  },
+  {
+    "role": "assistant",
+    "text": "The app uses `llama-3.1-8b-instant` on Groq across all three AI functions. Let me check if this model is still active.`llama-3.1-8b-instant` is **not deprecated** — it's fully active on Groq as of today. It's actually the recommended replacement for older decommissioned models like `llama3-8b-8192`.\n\nThe model is not the issue. The original 400 error you saw was an Anthropic account restriction, which is unrelated to your Groq integration.",
+    "timestamp": "2026-04-10T19:34:13.280Z"
+  },
+  {
+    "role": "user",
+    "text": "I ran the app in HuggingFace and had received the error upon clicking AI summary button on pitch portal. It is not an anthropic issue as I haven't used anthropic anywhere in the app",
+    "timestamp": "2026-04-10T19:36:37.602Z"
+  },
+  {
+    "role": "user",
+    "text": "Was my api key exposed to the gh repo?",
+    "timestamp": "2026-04-10T21:34:20.874Z"
+  },
+  {
+    "role": "assistant",
+    "text": "**Your API key was NOT exposed in the git repo.** All occurrences of `gsk_` in the history are only validation logic (e.g., `startswith(\"gsk_\")`), not actual key values. No `.env` files were ever committed.\n\nHowever, your `.gitignore` does **not** include `.env` — this is a risk going forward. I'd recommend adding it to prevent accidental future exposure.\n\n---\n\nNow for the actual 400 error on the AI summary button — let me look at that code path.The 400 error is coming from **Groq**, not Anthrop",
+    "timestamp": "2026-04-10T21:34:20.890Z"
+  },
+  {
+    "role": "user",
+    "text": "What color is the logo above Netflix title on login page?",
+    "timestamp": "2026-04-10T22:28:58.600Z"
+  },
+  {
+    "role": "assistant",
+    "text": "The logo above the Netflix title on the login page is the **▶️ play button emoji** — it renders as a red/orange play button icon at 50px font size.",
+    "timestamp": "2026-04-10T22:28:58.639Z"
+  },
+  {
+    "role": "user",
+    "text": "Make it red instead of orange",
+    "timestamp": "2026-04-10T22:29:35.659Z"
+  }
+]

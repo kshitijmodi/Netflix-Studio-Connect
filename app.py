@@ -2270,7 +2270,7 @@ def main():
                 # 1. Header Content (Logo & Welcome)
                 st.markdown("""
                 <div class='netflix-logo'>
-                    <div style='font-size: 50px; margin-bottom: 5px;'>▶️</div>
+                    <div style='font-size: 50px; margin-bottom: 5px; filter: hue-rotate(180deg) saturate(5) brightness(0.8);'>▶️</div>
                     <div class='netflix-title'>NETFLIX</div>
                     <div class='studio-subtitle'>Studio Connect</div>
                 </div>
@@ -2325,7 +2325,7 @@ def main():
             # Logo/Header
             st.markdown("""
             <div style='text-align: center; padding: 20px 0 10px 0;'>
-                <div style='font-size: 36px; margin-bottom: 8px;'>▶️</div>
+                <div style='font-size: 36px; margin-bottom: 8px; filter: hue-rotate(180deg) saturate(5) brightness(0.8);'>▶️</div>
                 <h2 style='color:#E50914; margin: 0; font-size: 24px; font-weight: 800;'>NETFLIX</h2>
                 <p style='color:#9CA3AF; font-size: 13px; margin: 5px 0 0 0; font-weight: 500;'>Studio Connect</p>
             </div>
