@@ -1004,7 +1004,7 @@ def screen_dashboard():
         st.markdown("<h1>Dashboard</h1>", unsafe_allow_html=True)
         studio_filter = current_studio
 
-    st.markdown("<p class='subtitle'>Welcome back! Here's an overview of studio activity.</p>", unsafe_allow_html=True)
+    st.markdown("<p class='subtitle'>Welcome Again! Here's an overview of studio activity.</p>", unsafe_allow_html=True)
 
     # Load and filter data
     projects = load_json('projects.json')
@@ -2274,7 +2274,7 @@ def main():
                     <div class='netflix-title'>NETFLIX</div>
                     <div class='studio-subtitle'>Studio Connect</div>
                 </div>
-                <div class='welcome-text'>Welcome!</div>
+                <div class='welcome-text'>Welcome Again!</div>
                 <div class='signin-subtitle'>Sign in to access your studio portal</div>
                 """, unsafe_allow_html=True)
 
