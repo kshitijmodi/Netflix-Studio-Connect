@@ -1,0 +1,25 @@
+name: Sync to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Push to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config --global credential.helper store
+          echo "https://iamkshitij:${HF_TOKEN}@huggingface.co" > ~/.git-credentials
+          git remote add hf https://huggingface.co/spaces/iamkshitij/netflix-studio-connect || true
+          git push hf main --force
