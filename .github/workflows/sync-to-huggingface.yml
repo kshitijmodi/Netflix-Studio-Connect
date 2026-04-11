@@ -20,5 +20,5 @@ jobs:
         run: |
           git config --global credential.helper store
           echo "https://user:${HF_TOKEN}@huggingface.co" > ~/.git-credentials
-          git remote add huggingface https://huggingface.co/spaces/${{ github.repository }} || true
+          git remote add huggingface https://huggingface.co/spaces/iamkshitij/netflix-studio-connect || true
           git push huggingface HEAD:main --force
