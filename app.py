@@ -2274,7 +2274,7 @@ def main():
                     <div class='netflix-title'>NETFLIX</div>
                     <div class='studio-subtitle'>Studio Connect</div>
                 </div>
-                <div class='welcome-text'>Welcome back</div>
+                <div class='welcome-text'>Welcome!</div>
                 <div class='signin-subtitle'>Sign in to access your studio portal</div>
                 """, unsafe_allow_html=True)
 
