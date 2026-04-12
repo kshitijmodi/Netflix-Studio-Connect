@@ -1,3 +1,4 @@
+# Workflow to mirror this repo to Hugging Face Spaces on every push
 name: Sync to Hugging Face Hub
 
 on:
@@ -10,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -21,4 +22,5 @@ jobs:
           git config --global credential.helper store
           echo "https://user:${HF_TOKEN}@huggingface.co" > ~/.git-credentials
           git remote add huggingface https://huggingface.co/spaces/iamkshitij/netflix-studio-connect || true
-          git push huggingface HEAD:main --force
+          git remote set-url huggingface https://user:${HF_TOKEN}@huggingface.co/spaces/iamkshitij/netflix-studio-connect
+          git push huggingface refs/heads/*:refs/heads/* refs/tags/*:refs/tags/* --force
