@@ -2237,6 +2237,7 @@ def main():
             border-color: #E50914 !important;
             background-color: #1F2330 !important;
             box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1) !important;
+            color: #FFFFFF !important;
         }
 
         /* Button Styling */
