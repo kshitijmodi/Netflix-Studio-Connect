@@ -296,6 +296,18 @@ st.markdown("""
         color: #FFFFFF !important;
         padding: 10px !important;
     }
+    .stTextInput>div>div>input::placeholder, .stTextArea>div>div>textarea::placeholder {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+    .stTextInput>div>div>input::-webkit-input-placeholder, .stTextArea>div>div>textarea::-webkit-input-placeholder {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+    .stTextInput>div>div>input::-moz-placeholder, .stTextArea>div>div>textarea::-moz-placeholder {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
 
     .stTextInput>label, .stTextArea>label, .stSelectbox>label {
         color: #E5E7EB !important;
@@ -2233,11 +2245,35 @@ def main():
             color: #FFFFFF !important;
             font-size: 15px !important;
         }
+        .stTextInput > div > div > input::placeholder {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+        }
+        .stTextInput > div > div > input::-webkit-input-placeholder {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+        }
+        .stTextInput > div > div > input::-moz-placeholder {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+        }
         .stTextInput > div > div > input:focus {
             border-color: #E50914 !important;
             background-color: #1F2330 !important;
             box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1) !important;
             color: #FFFFFF !important;
+        }
+        .stTextInput > div > div > input:focus::placeholder {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+        }
+        .stTextInput > div > div > input:focus::-webkit-input-placeholder {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+        }
+        .stTextInput > div > div > input:focus::-moz-placeholder {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
         }
 
         /* Button Styling */
